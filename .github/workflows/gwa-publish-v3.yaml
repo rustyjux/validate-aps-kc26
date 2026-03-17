@@ -1,9 +1,9 @@
-name: Deploy Configuration
+name: Deploy Configuration v3
 on:
   push:
     branches: [master]
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
