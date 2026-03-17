@@ -1,0 +1,34 @@
+name: Deploy Configuration
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get GWA Command Line
+        run: |
+          GWA_CLI_VERSION=v1.2.0; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
+          unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
+
+      - name: Apply Namespace dss-aps apidata
+        env:
+          NS: gw-143d8
+        run: |
+          export PATH=`pwd`:$PATH
+          cd .gwa/ns.${NS}
+          gwa init -P \
+            --api-version=1 \
+            --namespace=$NS \
+            --client-id=${{ secrets.GWA_ACCT_ID }} \
+            --client-secret=${{ secrets.GWA_ACCT_SECRET }}
+          gwa pg
