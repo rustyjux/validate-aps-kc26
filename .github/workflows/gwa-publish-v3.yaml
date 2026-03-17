@@ -1,9 +1,7 @@
 name: Deploy Configuration
 on:
-#   push:
-#     branches: [master]
-  workflow_dispatch:
-    
+  push:
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +17,7 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v1.2.0; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
+          GWA_CLI_VERSION=v3.0.6; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
           unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 
       - name: Apply Namespace
@@ -28,9 +26,12 @@ jobs:
         run: |
           export PATH=`pwd`:$PATH
           cd .gwa
-          gwa init -T \
-            --api-version=1 \
-            --namespace=$NS \
-            --client-id=${{ secrets.GWA_ACCT_ID }} \
-            --client-secret=${{ secrets.GWA_ACCT_SECRET }}
+          # gwa config set host api-gov-bc-ca.dev.api.gov.bc.ca
+          gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
+          # gwa config set host api.gov.bc.ca
+          
+          gwa login \
+          --client-id=${{ secrets.GWA_ACCT_ID }} \
+          --client-secret=${{ secrets.GWA_ACCT_SECRET }}
+          gwa config set gateway $NS
           gwa pg
