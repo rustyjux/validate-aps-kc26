@@ -25,7 +25,7 @@ jobs:
           NS: gw-143d8
         run: |
           export PATH=`pwd`:$PATH
-          cd .gwa/ns.${NS}
+          cd .gwa
           gwa init -T \
             --api-version=1 \
             --namespace=$NS \
