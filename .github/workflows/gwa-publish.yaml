@@ -20,13 +20,13 @@ jobs:
           GWA_CLI_VERSION=v1.2.0; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
           unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 
-      - name: Apply Namespace dss-aps apidata
+      - name: Apply Namespace
         env:
           NS: gw-143d8
         run: |
           export PATH=`pwd`:$PATH
           cd .gwa/ns.${NS}
-          gwa init -P \
+          gwa init -T \
             --api-version=1 \
             --namespace=$NS \
             --client-id=${{ secrets.GWA_ACCT_ID }} \
