@@ -17,8 +17,8 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v3.0.6; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
-          unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
+          GWA_CLI_VERSION=v3.0.6; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
+          tar -xf gwa_Linux_x86_64.tgz
 
       - name: Apply Namespace
         env:
