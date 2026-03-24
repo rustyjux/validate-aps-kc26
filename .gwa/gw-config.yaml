@@ -1,10 +1,21 @@
 services:
-- name: rjv-20260317-dev
-  tags: [ns.gw-143d8]
-  url: https://httpbun.com
+- name: a-service-for-gw-86cfe
+  host: httpbin.org
+  tags: [ ns.gw-86cfe ]
+  port: 443
   protocol: https
+  retries: 0
   routes:
-    - name: rjv-20260317-dev
-      tags: [ns.gw-143d8]
-      hosts:
-        - rjv-20260317.dev.api.gov.bc.ca
+  - name: a-service-for-gw-86cfe-route
+    tags: [ ns.gw-86cfe ]
+    hosts:
+    - a-service-for-gw-86cfe.api.gov.bc.ca
+    paths:
+    - /
+    methods:
+    - GET
+    strip_path: false
+    https_redirect_status_code: 426
+    path_handling: v0
+    request_buffering: true
+    response_buffering: true

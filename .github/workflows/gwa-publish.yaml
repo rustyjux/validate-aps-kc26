@@ -24,11 +24,11 @@ jobs:
 
       - name: Apply Namespace
         env:
-          NS: gw-143d8
+          NS: gw-86cfe
         run: |
           export PATH=`pwd`:$PATH
           cd .gwa
-          gwa init -T \
+          gwa init -D \
             --api-version=1 \
             --namespace=$NS \
             --client-id=${{ secrets.GWA_ACCT_ID }} \
