@@ -1,5 +1,5 @@
 services:
-- name: a-service-for-gw-86cfe
+- name: a-service-for-gw-86cfe-new
   host: httpbin.org
   tags: [ ns.gw-86cfe ]
   port: 443
