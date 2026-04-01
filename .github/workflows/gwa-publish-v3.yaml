@@ -21,8 +21,8 @@ jobs:
           cd .gwa-resource
           
           gwa login \
-          --client-id=${{ secrets.GWA_ACCT_ID }} \
-          --client-secret=${{ secrets.GWA_ACCT_SECRET }}
+          --client-id=${{ secrets.GWA_CLIENT_ID }} \
+          --client-secret=${{ secrets.GWA_CLIENT_SECRET }}
           gwa config set gateway $GW
           gwa apply -i gw-config-dev.yaml
           # gwa pg
