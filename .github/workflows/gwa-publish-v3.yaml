@@ -5,15 +5,10 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      GW: gw-143d8
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v6
 
       - name: Get GWA Command Line
         run: |
@@ -21,17 +16,13 @@ jobs:
           tar -xf gwa_Linux_x86_64.tgz
 
       - name: Apply Namespace
-        env:
-          NS: gw-143d8
         run: |
           export PATH=`pwd`:$PATH
-          cd .gwa
-          # gwa config set host api-gov-bc-ca.dev.api.gov.bc.ca
-          gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
-          # gwa config set host api.gov.bc.ca
+          cd .gwa-resource
           
           gwa login \
           --client-id=${{ secrets.GWA_ACCT_ID }} \
           --client-secret=${{ secrets.GWA_ACCT_SECRET }}
-          gwa config set gateway $NS
-          gwa pg
+          gwa config set gateway $GW
+          gwa apply -i gw-config-dev.yaml
+          # gwa pg
