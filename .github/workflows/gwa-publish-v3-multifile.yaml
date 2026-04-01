@@ -21,19 +21,19 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         run: |
           export PATH=`pwd`:$PATH
-          cd .gwa/dev
+          cd .gwa-resource/dev
           gwa login \
             --client-id=${{ secrets.GWA_CLIENT_ID }} \
             --client-secret=${{ secrets.GWA_CLIENT_SECRET }}
           gwa config set gateway $GW
-          gwa pg gw-config.yaml
+          gwa apply -i gw-config.yaml
       - name: Apply Prod Gateway Configuration
         if: github.ref == 'refs/heads/master'
         run: |
           export PATH=`pwd`:$PATH
-          cd .gwa/prod
+          cd .gwa-resource/prod
           gwa login \
             --client-id=${{ secrets.GWA_CLIENT_ID }} \
             --client-secret=${{ secrets.GWA_CLIENT_SECRET }}
           gwa config set gateway $GW
-          gwa pg gw-config.yaml
+          gwa apply -i gw-config.yaml
