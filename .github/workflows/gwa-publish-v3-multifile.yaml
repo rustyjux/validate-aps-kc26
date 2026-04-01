@@ -1,0 +1,38 @@
+on:
+  push:
+    branches: [ dev, master ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GW: gw-143d8
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get GWA Command Line
+        run: |
+          GWA_CLI_VERSION=v3.0.6
+          curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
+          tar -xf gwa_Linux_x86_64.tgz
+
+      - name: Apply Dev Gateway Configuration
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          export PATH=`pwd`:$PATH
+          cd .gwa/dev
+          gwa login \
+            --client-id=${{ secrets.GWA_CLIENT_ID }} \
+            --client-secret=${{ secrets.GWA_CLIENT_SECRET }}
+          gwa config set gateway $GW
+          gwa pg gw-config.yaml
+      - name: Apply Prod Gateway Configuration
+        if: github.ref == 'refs/heads/main'
+        run: |
+          export PATH=`pwd`:$PATH
+          cd .gwa/prod
+          gwa login \
+            --client-id=${{ secrets.GWA_CLIENT_ID }} \
+            --client-secret=${{ secrets.GWA_CLIENT_SECRET }}
+          gwa config set gateway $GW
+          gwa pg gw-config.yaml

@@ -1,0 +1,11 @@
+services:
+- name: rjv-20260317-dev
+  tags: [ns.gw-143d8]
+  url: https://httpbun.com
+  protocol: https
+  routes:
+    - name: rjv-20260317-dev
+      tags: [ns.gw-143d8]
+      hosts:
+        - rjv-20260317.dev.api.gov.bc.ca
+
