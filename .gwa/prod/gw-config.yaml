@@ -1,0 +1,10 @@
+services:
+- name: rjv-20260317
+  tags: [ns.gw-143d8.prod]
+  url: https://httpbun.com
+  protocol: https
+  routes:
+    - name: rjv-20260317
+      tags: [ns.gw-143d8.prod]
+      hosts:
+        - rjv-20260317.api.gov.bc.ca
