@@ -1,3 +1,4 @@
+name: Deploy Configuration v3 multifile
 on:
   push:
     branches: [ dev, master ]
@@ -27,7 +28,7 @@ jobs:
           gwa config set gateway $GW
           gwa pg gw-config.yaml
       - name: Apply Prod Gateway Configuration
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         run: |
           export PATH=`pwd`:$PATH
           cd .gwa/prod
