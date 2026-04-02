@@ -1,7 +1,8 @@
 name: Deploy Configuration v3
 on:
-  push:
-    branches: [master]
+  workflow_dispatch:
+  # push:
+  #   branches: [master]
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -12,7 +13,7 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v3.0.6; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
+          GWA_CLI_VERSION=v3.0.7; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
           tar -xf gwa_Linux_x86_64.tgz
 
       - name: Apply Namespace
